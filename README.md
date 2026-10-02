@@ -1,21 +1,22 @@
-# Vietnam 360 Experience
+# Vietnam 360 Experience V3
 
-Website tham quan panorama 360, quản lý địa điểm, kho ảnh, ChatAI Gemini và gửi hỗ trợ.
+## Trái Đất 3D
+Trang chủ dùng Three.js + OrbitControls. Trái Đất tự quay, kéo chuột/cảm ứng để xoay, cuộn/chụm để zoom; sau khi thả sẽ tự quay lại.
 
-## Chạy local
-Mở bằng local web server (ví dụ VS Code Live Server). Viewer dùng Pannellum qua CDN.
+## 3DVista
+### Upload trực tiếp để preview/lưu trên thiết bị
+Quản lý -> Upload Tour 3DVista -> chọn nguyên thư mục **Web Export**. Website lưu toàn bộ file vào IndexedDB và Service Worker phục vụ lại các đường dẫn tương đối để tour chạy trong iframe.
 
-## Deploy GitHub Pages
-Push toàn bộ project lên GitHub và bật Pages. Các trang tĩnh + panorama IndexedDB hoạt động. `/api/chat` KHÔNG hoạt động trên GitHub Pages vì Pages không có serverless backend.
+Lưu ý: dữ liệu upload trực tiếp là cục bộ trên trình duyệt đó. Xóa dữ liệu trình duyệt sẽ mất tour.
 
-## Deploy Vercel (khuyến nghị để ChatAI hoạt động)
-1. Import repository GitHub vào Vercel.
-2. Project Settings > Environment Variables.
-3. Tạo biến `GEMINI_API_KEY` và dán Gemini API key của bạn.
-4. Redeploy.
-5. Không đưa API key vào `js/app.js`, HTML hoặc commit lên GitHub.
+### Public cho mọi người
+3DVista -> Publish -> Web/Mobile. Copy nguyên output vào `tours/ten-tour/`, giữ `index.html`/`index.htm` và toàn bộ assets. Có thể thêm `tour.json`:
+`{"name":"Đại Nội Huế","description":"Mô tả"}`
+Sau đó chạy `npm run build:tours`, commit và deploy.
 
-## Lưu dữ liệu
-Địa điểm/ảnh upload từ trang quản lý dùng IndexedDB, nên chỉ tồn tại trong trình duyệt/thiết bị đã upload. Thư mục `assets/panoramas/` dành cho ảnh được commit cố định.
+## Vercel Environment Variables
+- `GEMINI_API_KEY`
+- `RESEND_API_KEY`
+- `SUPPORT_FROM_EMAIL` (sender/domain đã xác minh, khuyến nghị)
 
-Để dữ liệu upload dùng chung giữa mọi người và lưu thật trên server, cần bổ sung backend/storage như Firebase Storage + Firestore, Supabase Storage hoặc Cloudinary + database.
+Email hỗ trợ nhận tại `tongduy414@gmail.com`.

@@ -1,0 +1,1 @@
+{"name":"vietnam-360-v3","private":true,"type":"module","scripts":{"build":"node scripts/build-tours.mjs","build:tours":"node scripts/build-tours.mjs"}}
